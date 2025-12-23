@@ -3,6 +3,7 @@ import re
 import torch 
 from sentence_transformers import SentenceTransformer
 import faiss
+import pickle
 INP = "filtered_arxiv_metadata.json"
 
 _ws = re.compile(r"\s+")
@@ -40,3 +41,9 @@ index = faiss.IndexFlatIP(dimension)
 index.add(embeddings_arr)
 print(f"Indexed {index.ntotal} vectors of dimension {dimension}.")
 faiss.write_index(index, "arxiv_filtered_faiss.index")
+
+
+# Save the lists so search.py can use them later
+with open("/scratch/kkota3/nlp/metadata.pkl", "wb") as f:
+    pickle.dump({"ids": ids, "titles": search_texts}, f)
+print("Metadata saved successfully!")
