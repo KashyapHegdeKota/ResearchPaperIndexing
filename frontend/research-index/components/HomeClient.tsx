@@ -68,7 +68,7 @@ export default function HomeClient() {
       try {
         setLoading(true);
 
-        const res = await fetch(BACKEND_URL, {
+        const res = await fetch("api/search", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ query: q, k }),
